@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entropy Bio-Simulator</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <h1>Entropy Bio-Simulator</h1>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../resume.html">Résumé</a>
+    <a href="../projects.html">Projects</a>
+  </nav>
+
+  <p>A three-state cellular automaton illustrating energy flow, reproduction,
+     and entropy growth.</p>
+
+  <canvas id="entropySim"></canvas>
+
+  <script type="module">
+    import { startEntropySim } from "../js/demos/entropyBioSimulator.js";
+    startEntropySim("entropySim");
+  </script>
+</body>
+</html>
