@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caesar Cipher Machine</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <h1>Caesar Cipher Machine</h1>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../resume.html">Résumé</a>
+    <a href="../projects.html">Projects</a>
+  </nav>
+
+  <p>Choose a key (0–25), paste text, and encrypt or decrypt using a classic Caesar shift.</p>
+
+  <label>
+    Key (shift):
+    <input id="keyInput" type="number" value="3" style="width:60px;">
+  </label>
+
+  <h3>Input</h3>
+  <textarea id="plainText" rows="4" style="width:100%;"></textarea>
+
+  <div style="margin:1em 0;">
+    <button id="encryptBtn">Encrypt →</button>
+    <button id="decryptBtn">Decrypt →</button>
+  </div>
+
+  <h3>Output</h3>
+  <textarea id="cipherText" rows="4" style="width:100%;" readonly></textarea>
+
+  <script type="module">
+    import { setupCaesar } from "../js/demos/caesarCipher.js";
+    setupCaesar({
+      keyInput: "keyInput",
+      inArea:   "plainText",
+      outArea:  "cipherText",
+      encBtn:   "encryptBtn",
+      decBtn:   "decryptBtn",
+    });
+  </script>
+</body>
+</html>
