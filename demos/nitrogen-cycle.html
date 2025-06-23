@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nitrogen Cycle Visualizer</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <h1>Nitrogen Cycle Visualizer</h1>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../resume.html">Résumé</a>
+    <a href="../projects.html">Projects</a>
+  </nav>
+
+  <p>Animated diagram of the key processes in the nitrogen cycle.</p>
+
+  <!-- The canvas auto-scales with CSS; 600×400 default -->
+  <canvas id="nitrogenCanvas" style="width:100%;height:400px;"></canvas>
+
+  <script type="module">
+    import { startNitrogenCycle } from "../js/demos/nitrogenCycle.js";
+    startNitrogenCycle("nitrogenCanvas");
+  </script>
+</body>
+</html>
