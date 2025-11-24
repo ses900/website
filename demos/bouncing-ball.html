@@ -10,17 +10,14 @@
   <h1>Bouncing-Ball Simulation</h1>
 
   <!-- Navigation back to projects list -->
-  <nav>
-    <a href="../index.html">Home</a>
-    <a href="../resume.html">Résumé</a>
-    <a href="../projects.html">Projects</a>
-  </nav>
+  <div data-include-nav data-nav-src="../partials/nav.html" data-nav-base=".."></div>
 
   <p>A minimal JavaScript canvas demo that shows a ball bouncing within the
      window. Resize your browser — it adapts automatically.</p>
 
   <canvas id="bouncingBall"></canvas>
 
+  <script src="../js/nav.js" defer></script>
   <!-- Load the demo logic -->
   <script type="module">
     import { startBouncing } from "../js/demos/bouncingBall.js";
