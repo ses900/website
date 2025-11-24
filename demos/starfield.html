@@ -10,16 +10,13 @@
   <h1>Starfield Animation</h1>
 
   <!-- Navigation -->
-  <nav>
-    <a href="../index.html">Home</a>
-    <a href="../resume.html">Résumé</a>
-    <a href="../projects.html">Projects</a>
-  </nav>
+  <div data-include-nav data-nav-src="../partials/nav.html" data-nav-base=".."></div>
 
   <p>Enjoy the retro space-warp effect! (Auto-resizes on window changes.)</p>
 
   <canvas id="starfield"></canvas>
 
+  <script src="../js/nav.js" defer></script>
   <script type="module">
     import { startStarfield } from "../js/demos/starfield.js";
     startStarfield("starfield");
