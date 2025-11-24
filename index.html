@@ -7,23 +7,126 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Søren Emil Skaarup</h1>
+  <h1 class="page-title">Søren Emil Skaarup</h1>
 
   <!-- Navigation -->
   <div data-include-nav data-nav-src="partials/nav.html" data-nav-base="."></div>
 
-  <p>Welcome to my personal website. This is a central place for my projects, research, and digital experiments. You'll find links to my résumé, ongoing work, and small interactive demos here.</p>
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Machine Learning • Data Ethics • Cognitive Science</p>
+      <h2>Researcher exploring human-centered AI and creative simulations.</h2>
+      <p>I build demos to make abstract ideas tangible—whether that's ethics in AI,
+         emergent behaviour, or playful statistical intuition. This site is my
+         living lab: equal parts resume, research log, and gallery of quick experiments.</p>
+      <div class="cta-row">
+        <a class="button primary" href="projects.html">See projects</a>
+        <a class="button" href="resume.html">Résumé</a>
+        <a class="button ghost" href="mailto:se.skaarup@gmail.com">Email me</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>Now</h3>
+      <ul class="compact-list">
+        <li><strong>Reading:</strong> Cognitive architectures for responsible AI.</li>
+        <li><strong>Building:</strong> Tiny simulations that explain entropy and probability.</li>
+        <li><strong>Location:</strong> Copenhagen, Denmark.</li>
+      </ul>
+    </div>
+  </section>
 
-  <div class="section">
-    <h2><a href="resume.html">Résumé</a></h2>
-    <p>Summary of my professional experience, based on my LinkedIn profile.</p>
-  </div>
+  <section class="section">
+    <h2>Highlights</h2>
+    <div class="card-grid">
+      <article class="card">
+        <p class="label">Current focus</p>
+        <h3>Research Assistant, FORCE Technology</h3>
+        <p>Working on industrial machine learning with an emphasis on trustworthy
+           systems and explainability. Collaborating with the Pioneer Centre for AI</p>
+        <ul class="pill-list">
+          <li>Model auditing</li>
+          <li>Signal analysis</li>
+          <li>Human-in-the-loop design</li>
+        </ul>
+      </article>
+      <article class="card">
+        <p class="label">Community</p>
+        <h3>Data Ethics & Youth Advisory</h3>
+        <p>Active voice in the Danish data science scene and youth boards discussing
+           how platforms like TikTok and generative models shape society.</p>
+        <ul class="pill-list">
+          <li>Data Ethics Youth Board</li>
+          <li>Danish Data Science Academy</li>
+          <li>Workshops & outreach</li>
+        </ul>
+      </article>
+      <article class="card">
+        <p class="label">Playground</p>
+        <h3>Interactive Experiments</h3>
+        <p>Short demos that invite exploration—games, visual explanations, and
+           micro essays where code and writing meet.</p>
+        <ul class="pill-list">
+          <li><a href="projects.html#demos">Demo gallery</a></li>
+          <li><a href="demos/ai-training-viz.html">AI training viz</a></li>
+          <li><a href="demos/entropy-bio-simulator.html">Entropy automaton</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
 
-  <div class="section">
-    <h2><a href="projects.html">Projects</a></h2>
-    <p>A mix of public and private projects. This section will also host live demos of small games and simulations built in JavaScript.</p>
-  </div>
+  <section class="section">
+    <h2>Fresh from the Lab</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div>
+          <h3>Statistical intuition mini-course</h3>
+          <p>An experiment in teaching Bayesian thinking through short levels and
+             playful feedback. Inspired by common pitfalls I see in data ethics debates.</p>
+          <a href="demos/stat-intuition.html">Open the interactive lesson →</a>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div>
+          <h3>AI training visualiser</h3>
+          <p>Watch loss curves and sample evolution as a simple model learns. Designed
+             to demystify what happens between "train" and "deploy".</p>
+          <a href="demos/ai-training-viz.html">Run the visualiser →</a>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div>
+          <h3>Entropy Bio-Simulator</h3>
+          <p>A cellular automaton exploring resource competition, randomness, and
+             resilience. Great for sparking conversations about complex systems.</p>
+          <a href="demos/entropy-bio-simulator.html">Explore the simulator →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section accent">
+    <h2>What I'm interested in</h2>
+    <div class="grid two-col">
+      <div>
+        <h3>Questions</h3>
+        <ul class="compact-list">
+          <li>How do we make AI systems accountable without stifling creativity?</li>
+          <li>Which visual metaphors make statistics feel intuitive to newcomers?</li>
+          <li>What can small, playful simulations teach about policy and ethics?</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Collaborations</h3>
+        <p>If you're working on interpretable ML, ethical product design, or science
+           communication, I'm always happy to trade notes.</p>
+        <a class="button primary" href="mailto:se.skaarup@gmail.com">Start a conversation</a>
+      </div>
+    </div>
+  </section>
+
   <script src="js/nav.js" defer></script>
 </body>
 </html>
-
