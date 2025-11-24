@@ -145,28 +145,89 @@
     const slide = create("input", { type: "range", min: 1, max: 15, value: 1 }, sec);
     const res = create("p", {}, sec);
 
-    const trainX = Array.from({ length: 20 }, () => [rnd(-1, 1)]);
+    const maxPredictors = 15;
+    const trainX = Array.from({ length: 20 }, () => rnd(-1, 1));
     const trueW = 3;
-    const trainY = trainX.map(([x]) => trueW * x + rnd(-0.4, 0.4));
+    const trainY = trainX.map((x) => trueW * x + rnd(-0.4, 0.4));
 
-    const testX = Array.from({ length: 100 }, () => [rnd(-1.2, 1.2)]);
-    const testY = testX.map(([x]) => trueW * x + rnd(-0.4, 0.4));
+    const testX = Array.from({ length: 100 }, () => rnd(-1.2, 1.2));
+    const testY = testX.map((x) => trueW * x + rnd(-0.4, 0.4));
+
+    const trainNoise = trainX.map(() => Array.from({ length: maxPredictors - 1 }, () => rnd(-1, 1)));
+    const testNoise = testX.map(() => Array.from({ length: maxPredictors - 1 }, () => rnd(-1, 1)));
+
+    const designMatrix = (base, noise, k) =>
+      base.map((x, i) => [x, ...noise[i].slice(0, Math.max(0, k - 1))]);
+
+    const gaussianSolve = (A, b) => {
+      const n = A.length;
+      const aug = A.map((row, i) => [...row, b[i]]);
+      for (let col = 0; col < n; col++) {
+        let pivot = col;
+        for (let row = col + 1; row < n; row++) {
+          if (Math.abs(aug[row][col]) > Math.abs(aug[pivot][col])) pivot = row;
+        }
+        if (Math.abs(aug[pivot][col]) < 1e-8) continue;
+        if (pivot !== col) {
+          const tmp = aug[col];
+          aug[col] = aug[pivot];
+          aug[pivot] = tmp;
+        }
+        const pivotVal = aug[col][col];
+        for (let j = col; j <= n; j++) aug[col][j] /= pivotVal;
+        for (let row = 0; row < n; row++) {
+          if (row === col) continue;
+          const factor = aug[row][col];
+          for (let j = col; j <= n; j++) {
+            aug[row][j] -= factor * aug[col][j];
+          }
+        }
+      }
+      return aug.map((row) => row[n]);
+    };
+
+    const fitLinear = (X, y) => {
+      const n = X.length;
+      const k = X[0].length;
+      const XtX = Array.from({ length: k }, () => Array(k).fill(0));
+      const Xty = Array(k).fill(0);
+      for (let i = 0; i < n; i++) {
+        const row = X[i];
+        for (let a = 0; a < k; a++) {
+          Xty[a] += row[a] * y[i];
+          for (let b = 0; b < k; b++) {
+            XtX[a][b] += row[a] * row[b];
+          }
+        }
+      }
+      // tiny ridge term for numerical stability
+      for (let i = 0; i < k; i++) XtX[i][i] += 1e-3;
+      return gaussianSolve(XtX, Xty);
+    };
+
+    const mse = (X, Y, w) => {
+      let s = 0;
+      X.forEach((row, i) => {
+        const yhat = row.reduce((acc, xi, j) => acc + xi * w[j], 0);
+        s += (yhat - Y[i]) ** 2;
+      });
+      return s / X.length;
+    };
+
+    const modelCache = new Map();
 
     function fitPredictors(k) {
-      // simply append k‑1 noise columns
-      const X = trainX.map(([x]) => [x, ...Array.from({ length: k - 1 }, () => rnd(-1, 1))]);
-      // quick pseudo inverse solution using normal eq (X^T X)^‑1 X^T y   – but we fake weights here for brevity
-      const w = Array(k).fill(0).map(() => rnd(-1, 1));
-      // evaluate MSE
-      const mse = (Xset, Y) => {
-        let s = 0;
-        Xset.forEach((row, i) => {
-          const yhat = row.reduce((a, xi, j) => a + xi * w[j], 0);
-          s += (yhat - Y[i]) ** 2;
-        });
-        return s / Xset.length;
+      if (modelCache.has(k)) return modelCache.get(k);
+      const Xtrain = designMatrix(trainX, trainNoise, k);
+      const Xtest = designMatrix(testX, testNoise, k);
+      const w = fitLinear(Xtrain, trainY);
+      const result = {
+        w,
+        trainErr: mse(Xtrain, trainY, w),
+        testErr: mse(Xtest, testY, w),
       };
-      return { w, trainErr: mse(X, trainY), testErr: mse(testX.map(r => [...r, ...Array(k - 1).fill(0)]), testY) };
+      modelCache.set(k, result);
+      return result;
     }
 
     const draw = () => {
