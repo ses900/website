@@ -1,15 +1,21 @@
 /* Global layout */
 body {
   font-family: sans-serif;
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 2em;
   line-height: 1.6;
+  background: #f7f8fb;
+  color: #1f2933;
+}
+
+.page-title {
+  margin-top: 0.2em;
 }
 
 /* Headings */
 h1, h2, h3 {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #dfe3eb;
   padding-bottom: 0.3em;
 }
 
@@ -36,9 +42,196 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 0.65em 1.1em;
+  border-radius: 8px;
+  border: 1px solid #d0d7e2;
+  background: #fff;
+  color: #0645AD;
+  font-weight: 700;
+  margin-right: 0.5em;
+  margin-top: 0.4em;
+}
+.button.primary {
+  background: linear-gradient(135deg, #0645AD, #3b82f6);
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 20px rgba(6, 69, 173, 0.2);
+}
+.button.ghost {
+  background: transparent;
+}
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 /* Section spacing */
 .section {
+  margin-bottom: 2.4em;
+  background: #fff;
+  padding: 1.5em;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+.section.accent {
+  background: linear-gradient(135deg, #eef2ff, #f7f8fb);
+  box-shadow: none;
+  border: 1px solid #e0e6f3;
+}
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.4em;
+  align-items: center;
+  background: linear-gradient(135deg, #0a3d91, #1d4ed8);
+  color: #eef3ff;
+  padding: 1.8em;
+  border-radius: 14px;
   margin-bottom: 2em;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+}
+.hero .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  margin: 0 0 0.5em 0;
+  color: #c7ddff;
+}
+.hero h2 {
+  border: none;
+  padding: 0;
+  margin: 0 0 0.6em 0;
+  font-size: 1.8rem;
+}
+.hero p {
+  margin-top: 0;
+  margin-bottom: 0.6em;
+}
+.hero a {
+  color: #fff;
+}
+.hero .hero-card {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 12px;
+  padding: 1em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+.hero .hero-card h3 {
+  border: none;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0.4em;
+}
+
+/* Layout helpers */
+.grid.two-col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2em;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1em;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e4e8ef;
+  border-radius: 12px;
+  padding: 1em;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+}
+.card h3 {
+  border: none;
+  padding: 0;
+  margin-top: 0;
+}
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: #52616b;
+  margin: 0 0 0.4em 0;
+}
+
+/* Lists */
+ul {
+  margin-left: 1em;
+  list-style-type: disc;
+}
+.compact-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.compact-list li {
+  margin: 0.3em 0;
+}
+.pill-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.6em 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+.pill-list li {
+  background: #eef2ff;
+  border-radius: 999px;
+  padding: 0.35em 0.75em;
+  font-size: 0.9rem;
+  color: #1f2a44;
+}
+.stacked-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.stacked-list li {
+  background: #fff;
+  border: 1px solid #e4e8ef;
+  border-radius: 10px;
+  padding: 0.8em;
+  margin-bottom: 0.6em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* Timeline */
+.timeline {
+  border-left: 3px solid #cdd6ee;
+  padding-left: 1.2em;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 1em;
+}
+.timeline-item .dot {
+  position: absolute;
+  left: -1.56em;
+  top: 0.35em;
+  width: 12px;
+  height: 12px;
+  background: #3b82f6;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px #e6ecfa;
+}
+.timeline-item h3 {
+  border: none;
+  padding: 0;
+  margin: 0 0 0.3em 0;
 }
 
 /* Demo areas */
@@ -49,8 +242,12 @@ canvas {
   border: 1px solid #ccc;
 }
 
-/* Lists */
-ul {
-  margin-left: 1em;
-  list-style-type: disc;
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  body {
+    padding: 1.4em;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+  }
 }

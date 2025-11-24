@@ -12,55 +12,127 @@
   <!-- Navigation -->
   <div data-include-nav data-nav-src="partials/nav.html" data-nav-base="."></div>
 
-  <p>This page lists my ongoing research, side projects, and interactive demos.  
-     Click any demo to open it on its own clean page.</p>
+  <p>This page captures what I'm building and researching. Some items are polished,
+     others are living sketches I iterate on in public.</p>
 
+  <section class="section">
+    <h2>Feature Projects</h2>
+    <div class="card-grid">
+      <article class="card">
+        <p class="label">Applied ML</p>
+        <h3>Industrial ML &amp; Signal Analysis</h3>
+        <p>Practical machine learning at FORCE Technology with a focus on robust
+           pipelines, anomaly detection, and explainability. Many insights feed into my
+           teaching and demos.</p>
+        <ul class="pill-list">
+          <li>Trustworthy AI</li>
+          <li>Edge constraints</li>
+          <li>Experiment design</li>
+        </ul>
+      </article>
+      <article class="card">
+        <p class="label">Communication</p>
+        <h3>Data Ethics Workshops</h3>
+        <p>Hands-on sessions for students and practitioners exploring how algorithms
+           shape behaviour. Uses stories and interactive examples to make complex
+           trade-offs tangible.</p>
+        <ul class="pill-list">
+          <li>Platform dynamics</li>
+          <li>Design for agency</li>
+          <li>Participatory methods</li>
+        </ul>
+      </article>
+      <article class="card">
+        <p class="label">Learning tools</p>
+        <h3>Statistical Intuition Game</h3>
+        <p>Playable micro-lessons that guide people through correlation pitfalls and
+           Bayesian thinking. Built to make maths feel less intimidating and more
+           exploratory.</p>
+        <a href="demos/stat-intuition.html">Try the demo →</a>
+      </article>
+    </div>
+  </section>
 
-  <div class="section">
+  <section class="section" id="demos">
     <h2>Interactive Demos</h2>
-    <ul>
-  <li>
-    <strong>Bouncing-Ball Simulation</strong> – Basic physics loop in Canvas.
-    <a href="demos/bouncing-ball.html">View demo →</a>
-  </li>
-  <li>
-    <strong>Starfield Animation</strong> – Retro flying-through-space effect.
-    <a href="demos/starfield.html">View demo →</a>
-  </li>
-  <li>
-    <strong>Essay</strong> – Physics
-    <a href="demos/physics.html">View →</a>
-  </li>
-  <li>
-    <strong>Essay</strong> – Natural History
-    <a href="demos/Natural_History.html">View →</a>
-  </li>
-  <li>
-  <strong>Entropy Bio-Simulator</strong> – Cellular automaton of life, resources, and entropy.
-  <a href="demos/entropy-bio-simulator.html">View demo →</a>
-  </li>
-  <li>
-  <strong>Nitrogen Cycle Visualizer</strong> – Animated diagram of nitrogen flows.
-  <a href="demos/nitrogen-cycle.html">View demo →</a>
-  </li>
-  <li>
-  <strong>Caesar Cipher Machine</strong> – Encrypt or decrypt text by a chosen shift.
-  <a href="demos/caesar-cipher.html">View demo →</a>
-  </li>
-  <li>
-  <strong>Statistical Intuition Game</strong> – Hands-on lessons on correlation, causation, Bayesian pitfalls.
-  <a href="demos/stat-intuition.html">View demo →</a>
-  </li>
-  <li>
-  <strong>AI Training &amp; Inference Demo</strong> – Watch error minimisation and multinomial sampling.
-  <a href="demos/ai-training-viz.html">View demo →</a>
-  </li>
+    <p>Short, self-contained experiments that often accompany talks or essays.</p>
+    <div class="grid two-col">
+      <ul class="stacked-list">
+        <li>
+          <strong>Bouncing-Ball Simulation</strong> — Basic physics loop in Canvas.
+          <a href="demos/bouncing-ball.html">View demo →</a>
+        </li>
+        <li>
+          <strong>Starfield Animation</strong> — Retro flying-through-space effect.
+          <a href="demos/starfield.html">View demo →</a>
+        </li>
+        <li>
+          <strong>Entropy Bio-Simulator</strong> — Cellular automaton of life, resources,
+          and entropy.
+          <a href="demos/entropy-bio-simulator.html">View demo →</a>
+        </li>
+        <li>
+          <strong>Nitrogen Cycle Visualizer</strong> — Animated diagram of nitrogen flows.
+          <a href="demos/nitrogen-cycle.html">View demo →</a>
+        </li>
+        <li>
+          <strong>Caesar Cipher Machine</strong> — Encrypt or decrypt text by a chosen shift.
+          <a href="demos/caesar-cipher.html">View demo →</a>
+        </li>
+      </ul>
+      <ul class="stacked-list">
+        <li>
+          <strong>AI Training &amp; Inference Demo</strong> — Watch error minimisation and
+          multinomial sampling.
+          <a href="demos/ai-training-viz.html">View demo →</a>
+        </li>
+        <li>
+          <strong>Statistical Intuition Game</strong> — Hands-on lessons on correlation,
+          causation, Bayesian pitfalls.
+          <a href="demos/stat-intuition.html">View demo →</a>
+        </li>
+        <li>
+          <strong>Essay</strong> — Physics
+          <a href="demos/physics.html">View →</a>
+        </li>
+        <li>
+          <strong>Essay</strong> — Natural History
+          <a href="demos/Natural_History.html">View →</a>
+        </li>
+      </ul>
+    </div>
+  </section>
 
+  <section class="section accent">
+    <h2>Research Snapshots</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div>
+          <h3>Interpretable pipelines</h3>
+          <p>Documenting simple heuristics for auditing industrial ML systems so that
+             engineers and non-technical partners can co-own model decisions.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div>
+          <h3>Ethics in motion</h3>
+          <p>Using agent-based demos to show how platform incentives nudge behaviour,
+             drawing from my work on youth advisory boards.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div>
+          <h3>Learning from small data</h3>
+          <p>Exploring Bayesian and simulation-based techniques to extract signal when
+             datasets are thin, noisy, or privacy constrained.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-</ul>
-
-
-  </div>
   <script src="js/nav.js" defer></script>
 </body>
 </html>
