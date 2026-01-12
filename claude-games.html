@@ -87,6 +87,814 @@
     </section>
   </main>
 
+
+
+
+  #herunder en quiz i ren html kode
+
   <script src="js/nav.js" defer></script>
 </body>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Basic Botany Quiz</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin: 0; padding: 24px;
+      line-height: 1.35;
+      display: grid; place-items: start center;
+    }
+    .app { width: min(920px, 100%); }
+    .card {
+      border: 1px solid color-mix(in oklab, CanvasText 18%, Canvas 82%);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 6px 18px color-mix(in oklab, CanvasText 12%, transparent);
+      background: color-mix(in oklab, Canvas 92%, CanvasText 8%);
+    }
+    h1 { font-size: 1.6rem; margin: 0 0 10px; }
+    h2 { font-size: 1.15rem; margin: 14px 0 10px; }
+    p { margin: 8px 0; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .muted { opacity: .82; }
+    .pill {
+      padding: 6px 10px;
+      border: 1px solid color-mix(in oklab, CanvasText 18%, Canvas 82%);
+      border-radius: 999px;
+      font-size: .88rem;
+      user-select: none;
+    }
+    .progress {
+      height: 10px; border-radius: 999px;
+      background: color-mix(in oklab, CanvasText 10%, Canvas 90%);
+      overflow: hidden;
+      margin: 10px 0 4px;
+    }
+    .progress > div { height: 100%; width: 0%; background: color-mix(in oklab, CanvasText 55%, Canvas 45%); }
+    button, .btn {
+      border: 1px solid color-mix(in oklab, CanvasText 22%, Canvas 78%);
+      background: color-mix(in oklab, Canvas 88%, CanvasText 12%);
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover { filter: brightness(1.03); }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+    .choices { display: grid; gap: 10px; margin-top: 10px; }
+    .choice {
+      text-align: left;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid color-mix(in oklab, CanvasText 18%, Canvas 82%);
+      background: color-mix(in oklab, Canvas 94%, CanvasText 6%);
+    }
+    .choice.correct {
+      border-color: color-mix(in oklab, #2e7d32 65%, Canvas 35%);
+      background: color-mix(in oklab, #2e7d32 15%, Canvas 85%);
+    }
+    .choice.incorrect {
+      border-color: color-mix(in oklab, #c62828 65%, Canvas 35%);
+      background: color-mix(in oklab, #c62828 12%, Canvas 88%);
+    }
+    .choice.reveal {
+      outline: 2px dashed color-mix(in oklab, CanvasText 30%, transparent);
+      outline-offset: 2px;
+    }
+    .explain {
+      margin-top: 12px;
+      border-left: 4px solid color-mix(in oklab, CanvasText 30%, Canvas 70%);
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: color-mix(in oklab, Canvas 92%, CanvasText 8%);
+    }
+    .kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      padding: 2px 6px; border-radius: 6px;
+      border: 1px solid color-mix(in oklab, CanvasText 20%, Canvas 80%);
+      background: color-mix(in oklab, Canvas 90%, CanvasText 10%);
+      font-size: .9em;
+    }
+    .footer { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .list { margin: 0; padding-left: 18px; }
+    .review { margin-top: 10px; }
+    details { border: 1px solid color-mix(in oklab, CanvasText 16%, Canvas 84%); border-radius: 12px; padding: 10px 12px; }
+    summary { cursor: pointer; font-weight: 700; }
+    .tag { font-size: .78rem; opacity: .8; }
+    .grid2 { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 820px) { .grid2 { grid-template-columns: 1.1fr .9fr; } }
+    .small { font-size: .92rem; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="card" id="screenStart">
+      <h1>🌿 Basic Botany Quiz</h1>
+      <p class="muted">
+        Topics: plant anatomy, physiology, photosynthesis & respiration (the “carbon paradox”),
+        the move from water to land, and coevolution / convergent evolution.
+      </p>
+
+      <div class="grid2">
+        <div>
+          <h2>Choose your quiz</h2>
+          <div class="row">
+            <label class="pill"><input type="checkbox" id="catAnatomy" checked> Anatomy</label>
+            <label class="pill"><input type="checkbox" id="catPhys" checked> Physiology</label>
+            <label class="pill"><input type="checkbox" id="catCarbon" checked> Carbon chemistry</label>
+            <label class="pill"><input type="checkbox" id="catLand" checked> Water → land</label>
+            <label class="pill"><input type="checkbox" id="catEvo" checked> Evolution & coevolution</label>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <label class="pill">Questions:
+              <select id="numQ">
+                <option>8</option>
+                <option selected>12</option>
+                <option>16</option>
+                <option>20</option>
+              </select>
+            </label>
+            <label class="pill"><input type="checkbox" id="shuffle" checked> Shuffle questions</label>
+            <label class="pill"><input type="checkbox" id="shuffleChoices" checked> Shuffle choices</label>
+            <label class="pill"><input type="checkbox" id="instantFeedback" checked> Instant feedback</label>
+          </div>
+
+          <div class="footer">
+            <button id="btnStart">Start quiz</button>
+            <button id="btnSample" title="Try one concept-heavy question first">Try a “carbon paradox” sample</button>
+          </div>
+
+          <p class="small muted" style="margin-top:10px">
+            Keyboard: <span class="kbd">1</span>–<span class="kbd">4</span> to answer, <span class="kbd">Enter</span> to continue.
+          </p>
+        </div>
+
+        <div>
+          <h2>Quick concept to watch for</h2>
+          <p class="small">
+            Plants both <b>fix carbon</b> (build sugars from CO₂ in photosynthesis) <i>and</i>
+            <b>respire carbon</b> (break sugars down to CO₂ to make ATP). They’re “building” and “burning” carbon
+            at different times/places, and the <b>net</b> depends on conditions (light, temperature, water, etc.).
+          </p>
+          <ul class="list small">
+            <li><b>Photosynthesis:</b> CO₂ → sugars (stores energy)</li>
+            <li><b>Respiration:</b> sugars → CO₂ (releases energy as ATP)</li>
+            <li><b>Net growth:</b> photosynthesis − respiration</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="screenQuiz" style="display:none">
+      <div class="row" style="justify-content:space-between">
+        <div class="row">
+          <span class="pill" id="pillIndex">Q 1 / 12</span>
+          <span class="pill" id="pillScore">Score: 0</span>
+          <span class="pill" id="pillCat">Category</span>
+        </div>
+        <button id="btnRestartTop" class="btn" title="Restart quiz">Restart</button>
+      </div>
+
+      <div class="progress" aria-hidden="true"><div id="bar"></div></div>
+      <div class="muted small" id="progressText">0% complete</div>
+
+      <h2 id="qText">Question text</h2>
+      <div class="choices" id="choices"></div>
+
+      <div class="explain" id="explain" style="display:none"></div>
+
+      <div class="footer">
+        <button id="btnReveal" disabled>Reveal answer</button>
+        <button id="btnNext" disabled>Next</button>
+      </div>
+    </div>
+
+    <div class="card" id="screenResults" style="display:none">
+      <h1>Results</h1>
+      <p id="summary" class="muted"></p>
+
+      <div class="row">
+        <span class="pill" id="finalScore"></span>
+        <span class="pill" id="finalPct"></span>
+        <span class="pill" id="finalTime"></span>
+      </div>
+
+      <div class="review" id="review"></div>
+
+      <div class="footer">
+        <button id="btnRetry">Retry (same settings)</button>
+        <button id="btnBack">Back to start</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Question bank ----------
+    // Each question: { id, category, prompt, choices: [..], answerIndex, explanation }
+    const BANK = [
+      // Anatomy
+      {
+        id: "anat_xylem",
+        category: "Anatomy",
+        prompt: "Which tissue mainly transports water and dissolved minerals upward from roots?",
+        choices: ["Phloem", "Xylem", "Epidermis", "Cork"],
+        answerIndex: 1,
+        explanation:
+          "Xylem conducts water/minerals (and provides structural support via lignified walls). Phloem transports sugars and other organic solutes."
+      },
+      {
+        id: "anat_phloem",
+        category: "Anatomy",
+        prompt: "Phloem is best described as the tissue that moves…",
+        choices: [
+          "Sugars and signaling molecules from sources to sinks",
+          "Water only, driven by root pressure",
+          "CO₂ into leaves via stomata",
+          "Pollen from anthers to stigma"
+        ],
+        answerIndex: 0,
+        explanation:
+          "Phloem transports photosynthate (mainly sucrose) and many signals. Flow is often modeled by pressure-flow (Münch) where source loading raises osmotic pressure."
+      },
+      {
+        id: "anat_stomata",
+        category: "Anatomy",
+        prompt: "Stomata are pores primarily used for…",
+        choices: [
+          "Absorbing nitrate from soil",
+          "Gas exchange and regulating water loss",
+          "Transporting sugars through stems",
+          "Producing seeds"
+        ],
+        answerIndex: 1,
+        explanation:
+          "Stomata let CO₂ in for photosynthesis and let O₂ and water vapor out. Guard cells open/close them to balance carbon gain with water conservation."
+      },
+      {
+        id: "anat_root_hair",
+        category: "Anatomy",
+        prompt: "Root hairs mainly increase…",
+        choices: ["Reproductive success directly by making flowers", "Surface area for water and nutrient uptake", "Sugar storage in the stem", "Leaf thickness"],
+        answerIndex: 1,
+        explanation:
+          "Root hairs are tiny epidermal extensions that massively increase root surface area, improving water and mineral absorption."
+      },
+
+      // Physiology
+      {
+        id: "phys_transpiration",
+        category: "Physiology",
+        prompt: "Most water moves up a tall tree because of…",
+        choices: [
+          "A suction (tension) created by transpiration from leaves",
+          "Muscle-like pumping by stems",
+          "Only root pressure pushing water upward",
+          "Water being pulled by gravity"
+        ],
+        answerIndex: 0,
+        explanation:
+          "The cohesion–tension mechanism: evaporation from leaf air spaces lowers water potential, pulling a continuous water column upward through xylem."
+      },
+      {
+        id: "phys_guard_cells",
+        category: "Physiology",
+        prompt: "Guard cells open stomata primarily by…",
+        choices: [
+          "Losing potassium ions (K⁺) to the outside",
+          "Gaining solutes (like K⁺), drawing in water and becoming turgid",
+          "Digesting chloroplasts to create space",
+          "Producing lignin in their walls"
+        ],
+        answerIndex: 1,
+        explanation:
+          "When guard cells accumulate solutes, water enters osmotically, turgor rises, and the pore opens (thanks to guard cell wall geometry)."
+      },
+      {
+        id: "phys_myco",
+        category: "Physiology",
+        prompt: "Mycorrhizal fungi benefit plants mainly by improving uptake of…",
+        choices: ["CO₂ from air", "Phosphorus and water from soil", "Oxygen for respiration", "Light for photosynthesis"],
+        answerIndex: 1,
+        explanation:
+          "Mycorrhizae extend the effective root network, boosting phosphorus (often limiting) and water uptake; plants often trade sugars for this help."
+      },
+      {
+        id: "phys_hormone",
+        category: "Physiology",
+        prompt: "Which plant hormone is strongly associated with stomatal closure during drought stress?",
+        choices: ["Auxin", "Gibberellin", "Abscisic acid (ABA)", "Cytokinin"],
+        answerIndex: 2,
+        explanation:
+          "ABA rises under water stress and triggers guard-cell signaling that closes stomata, reducing transpiration."
+      },
+
+      // Carbon chemistry (photosynthesis + respiration + the tricky contemplation)
+      {
+        id: "carb_overall",
+        category: "Carbon chemistry",
+        prompt: "Which statement best captures the “carbon paradox” in plants?",
+        choices: [
+          "Plants only release CO₂, never absorb it",
+          "Plants fix CO₂ into sugars, but they also break sugars back down to CO₂ to make ATP",
+          "Plants can’t use oxygen because they lack mitochondria",
+          "Plants only respire at night and photosynthesize only in roots"
+        ],
+        answerIndex: 1,
+        explanation:
+          "Photosynthesis stores energy by building sugars from CO₂; cellular respiration releases energy by oxidizing those sugars back to CO₂. Net growth depends on the balance."
+      },
+      {
+        id: "carb_calvin",
+        category: "Carbon chemistry",
+        prompt: "The Calvin cycle (carbon fixation) occurs in the…",
+        choices: ["Mitochondrial matrix", "Chloroplast stroma", "Thylakoid membrane lumen", "Cell wall"],
+        answerIndex: 1,
+        explanation:
+          "Light reactions occur in thylakoid membranes to make ATP/NADPH; the Calvin cycle in the chloroplast stroma uses them to fix CO₂ into carbohydrates."
+      },
+      {
+        id: "carb_respiration",
+        category: "Carbon chemistry",
+        prompt: "Cellular respiration in plants primarily happens in the…",
+        choices: ["Chloroplast only", "Mitochondria (and also glycolysis in cytosol)", "Vacuole", "Golgi apparatus"],
+        answerIndex: 1,
+        explanation:
+          "Plants have mitochondria and run respiration like other eukaryotes: glycolysis (cytosol) + Krebs cycle and oxidative phosphorylation (mitochondria)."
+      },
+      {
+        id: "carb_photoresp",
+        category: "Carbon chemistry",
+        prompt: "Photorespiration is tricky because it…",
+        choices: [
+          "Directly produces lots of sugar without light",
+          "Consumes O₂ and releases CO₂, reducing photosynthetic efficiency",
+          "Is the same as fermentation",
+          "Only occurs in roots and seeds"
+        ],
+        answerIndex: 1,
+        explanation:
+          "Rubisco can bind O₂ instead of CO₂, leading to a pathway that uses energy and releases CO₂. C₄ and CAM strategies reduce this by concentrating CO₂."
+      },
+
+      // Water → land transition
+      {
+        id: "land_cuticle",
+        category: "Water → land",
+        prompt: "A key adaptation that helped early land plants reduce water loss was the…",
+        choices: ["Swim bladder", "Waxy cuticle", "Gills", "Silica shell"],
+        answerIndex: 1,
+        explanation:
+          "A waxy cuticle limits evaporation. But it also makes gas exchange harder—one reason stomata became important."
+      },
+      {
+        id: "land_stomata_tradeoff",
+        category: "Water → land",
+        prompt: "Why are stomata such a big deal in the move to land?",
+        choices: [
+          "They create seeds directly",
+          "They allow CO₂ uptake while regulating water loss",
+          "They pump blood like a heart",
+          "They make lignin for wood"
+        ],
+        answerIndex: 1,
+        explanation:
+          "On land, plants needed CO₂ but risked drying out. Stomata are adjustable pores that balance carbon gain with water conservation."
+      },
+      {
+        id: "land_vascular",
+        category: "Water → land",
+        prompt: "Compared with mosses, vascular plants (ferns, seed plants) are better at being tall mainly because they evolved…",
+        choices: ["Vascular tissues with lignin support", "Only larger stomata", "Animal pollinators", "Chlorophyll b"],
+        answerIndex: 0,
+        explanation:
+          "Xylem/phloem move resources over long distances, and lignified tissues provide support—key for growing upright and colonizing new habitats."
+      },
+      {
+        id: "land_seed_pollen",
+        category: "Water → land",
+        prompt: "Seeds and pollen were major evolutionary steps because they…",
+        choices: [
+          "Require standing water for fertilization",
+          "Let reproduction occur without free water and protect/nourish embryos",
+          "Stop photosynthesis from happening",
+          "Replace roots entirely"
+        ],
+        answerIndex: 1,
+        explanation:
+          "Pollen delivers sperm without swimming through water; seeds protect embryos and provide stored energy—huge advantages on land."
+      },
+
+      // Evolution, convergent tendencies, coevolution
+      {
+        id: "evo_convergent",
+        category: "Evolution & coevolution",
+        prompt: "Convergent evolution means…",
+        choices: [
+          "Closely related species always look similar",
+          "Unrelated lineages evolve similar traits under similar selection pressures",
+          "Evolution always moves toward “higher” forms",
+          "Only animals evolve complex traits"
+        ],
+        answerIndex: 1,
+        explanation:
+          "Convergence produces similar solutions (e.g., wings in birds and bats; cactus-like succulents in different plant families) because environments shape what works."
+      },
+      {
+        id: "evo_parentalcare",
+        category: "Evolution & coevolution",
+        prompt: "Which is a plant example that resembles “care for the next generation” (a convergent theme with animals)?",
+        choices: [
+          "Providing stored food and protection around the embryo (seeds, fruits)",
+          "Growing gills to breathe underwater",
+          "Replacing DNA with RNA",
+          "Stopping reproduction entirely"
+        ],
+        answerIndex: 0,
+        explanation:
+          "Seeds package an embryo with resources and protective coats; many fruits also protect and help disperse seeds—functionally similar to provisioning/guarding young."
+      },
+      {
+        id: "evo_nurseplants",
+        category: "Evolution & coevolution",
+        prompt: "In harsh deserts, some adult plants increase survival of seedlings by shading them and improving soil—this is often called…",
+        choices: ["Nurse plant facilitation", "Predation", "Parasitism", "Genetic drift"],
+        answerIndex: 0,
+        explanation:
+          "Nurse plants create microhabitats that help seedlings establish—an ecological form of “helping the young,” even when they’re not direct offspring."
+      },
+      {
+        id: "evo_angio_insect",
+        category: "Evolution & coevolution",
+        prompt: "A classic example of coevolution between an angiosperm and an insect is…",
+        choices: [
+          "Fig trees and fig wasps",
+          "Pine trees and salmon",
+          "Ferns and whales",
+          "Mosses and elephants"
+        ],
+        answerIndex: 0,
+        explanation:
+          "Many fig species rely on specific fig wasps for pollination, and the wasps rely on figs for reproduction—tight mutual adaptation over evolutionary time."
+      },
+      {
+        id: "evo_pollination_traits",
+        category: "Evolution & coevolution",
+        prompt: "Which floral trait most directly promotes insect pollination?",
+        choices: [
+          "Nectar rewards and scent/color cues",
+          "Thicker xylem walls",
+          "More stomata on roots",
+          "Salt glands on leaves"
+        ],
+        answerIndex: 0,
+        explanation:
+          "Many angiosperms evolved nectar, scents, colors, and shapes that influence insect behavior, while insects evolved structures/behaviors to access rewards and move pollen."
+      },
+      {
+        id: "evo_yucca",
+        category: "Evolution & coevolution",
+        prompt: "In the yucca–yucca moth mutualism, the moth’s life cycle is tied to the plant because the moth…",
+        choices: [
+          "Pollinates the flower and lays eggs so larvae feed on some developing seeds",
+          "Eats the leaves but never interacts with flowers",
+          "Lives in the roots and fixes nitrogen",
+          "Only visits the plant for water"
+        ],
+        answerIndex: 0,
+        explanation:
+          "The moth actively pollinates yucca flowers and lays eggs; larvae consume some seeds. The plant still benefits because pollination success rises (a tradeoff)."
+      }
+    ];
+
+    // ---------- State ----------
+    const $ = (sel) => document.querySelector(sel);
+    const screenStart = $("#screenStart");
+    const screenQuiz = $("#screenQuiz");
+    const screenResults = $("#screenResults");
+
+    const choicesEl = $("#choices");
+    const explainEl = $("#explain");
+    const btnReveal = $("#btnReveal");
+    const btnNext = $("#btnNext");
+
+    const pillIndex = $("#pillIndex");
+    const pillScore = $("#pillScore");
+    const pillCat = $("#pillCat");
+    const bar = $("#bar");
+    const progressText = $("#progressText");
+    const qText = $("#qText");
+
+    const summaryEl = $("#summary");
+    const finalScoreEl = $("#finalScore");
+    const finalPctEl = $("#finalPct");
+    const finalTimeEl = $("#finalTime");
+    const reviewEl = $("#review");
+
+    let quiz = [];
+    let idx = 0;
+    let score = 0;
+    let answered = false;
+    let startTime = null;
+    let userAnswers = []; // {qid, chosenIndex, correct, category}
+
+    function selectedCategories() {
+      const cats = [];
+      if ($("#catAnatomy").checked) cats.push("Anatomy");
+      if ($("#catPhys").checked) cats.push("Physiology");
+      if ($("#catCarbon").checked) cats.push("Carbon chemistry");
+      if ($("#catLand").checked) cats.push("Water → land");
+      if ($("#catEvo").checked) cats.push("Evolution & coevolution");
+      return cats;
+    }
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+
+    function buildQuiz({ sampleOnly = false } = {}) {
+      const cats = selectedCategories();
+      const n = Number($("#numQ").value);
+
+      let pool = BANK.filter(q => cats.includes(q.category));
+      if (pool.length === 0) pool = BANK.slice(); // fallback: everything
+
+      // Sample-only: pick the carbon paradox question
+      if (sampleOnly) {
+        const q = BANK.find(x => x.id === "carb_overall");
+        pool = q ? [q] : [BANK[0]];
+      }
+
+      if ($("#shuffle").checked) pool = shuffle(pool.slice());
+      const take = sampleOnly ? 1 : clamp(n, 1, pool.length);
+      quiz = pool.slice(0, take).map(q => ({
+        ...q,
+        // optionally shuffle choices but keep answerIndex mapped
+        choices: q.choices.slice(),
+        answerIndex: q.answerIndex
+      }));
+
+      if ($("#shuffleChoices").checked) {
+        quiz = quiz.map(q => {
+          const pairs = q.choices.map((text, i) => ({ text, i }));
+          shuffle(pairs);
+          const newChoices = pairs.map(p => p.text);
+          const newAnswerIndex = pairs.findIndex(p => p.i === q.answerIndex);
+          return { ...q, choices: newChoices, answerIndex: newAnswerIndex };
+        });
+      }
+
+      idx = 0;
+      score = 0;
+      answered = false;
+      userAnswers = [];
+      startTime = performance.now();
+    }
+
+    function showScreen(which) {
+      screenStart.style.display = which === "start" ? "block" : "none";
+      screenQuiz.style.display = which === "quiz" ? "block" : "none";
+      screenResults.style.display = which === "results" ? "block" : "none";
+    }
+
+    function render() {
+      const q = quiz[idx];
+      answered = false;
+      explainEl.style.display = "none";
+      explainEl.textContent = "";
+      btnReveal.disabled = false;
+      btnNext.disabled = true;
+
+      pillIndex.textContent = `Q ${idx + 1} / ${quiz.length}`;
+      pillScore.textContent = `Score: ${score}`;
+      pillCat.textContent = q.category;
+
+      const pct = Math.round((idx / quiz.length) * 100);
+      bar.style.width = `${pct}%`;
+      progressText.textContent = `${pct}% complete`;
+
+      qText.textContent = q.prompt;
+
+      choicesEl.innerHTML = "";
+      q.choices.forEach((c, i) => {
+        const b = document.createElement("button");
+        b.className = "choice";
+        b.type = "button";
+        b.setAttribute("data-index", String(i));
+        b.innerHTML = `<span class="tag">Choice ${i + 1}</span><br>${escapeHtml(c)}`;
+        b.addEventListener("click", () => choose(i));
+        choicesEl.appendChild(b);
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function setChoicesDisabled(disabled) {
+      choicesEl.querySelectorAll("button.choice").forEach(btn => btn.disabled = disabled);
+    }
+
+    function reveal(correctIndex) {
+      const btns = [...choicesEl.querySelectorAll("button.choice")];
+      btns.forEach((btn, i) => {
+        btn.classList.remove("correct", "incorrect", "reveal");
+        if (i === correctIndex) btn.classList.add("correct", "reveal");
+      });
+    }
+
+    function choose(chosenIndex) {
+      if (answered) return;
+      const q = quiz[idx];
+      const correctIndex = q.answerIndex;
+      answered = true;
+
+      setChoicesDisabled(true);
+
+      const btns = [...choicesEl.querySelectorAll("button.choice")];
+      btns.forEach((btn, i) => {
+        btn.classList.remove("correct", "incorrect", "reveal");
+        if (i === correctIndex) btn.classList.add("correct");
+        if (i === chosenIndex && chosenIndex !== correctIndex) btn.classList.add("incorrect");
+        if (i === correctIndex) btn.classList.add("reveal");
+      });
+
+      const correct = chosenIndex === correctIndex;
+      if (correct) score += 1;
+      pillScore.textContent = `Score: ${score}`;
+
+      userAnswers.push({
+        qid: q.id,
+        category: q.category,
+        chosenIndex,
+        correct
+      });
+
+      if ($("#instantFeedback").checked) {
+        explainEl.style.display = "block";
+        explainEl.innerHTML = `<b>${correct ? "Correct ✅" : "Not quite ❌"}</b><br>${escapeHtml(q.explanation)}`;
+        btnNext.disabled = false;
+        btnReveal.disabled = true;
+      } else {
+        // user can reveal first, then next
+        btnNext.disabled = false;
+      }
+    }
+
+    function revealAnswer() {
+      const q = quiz[idx];
+      reveal(q.answerIndex);
+      explainEl.style.display = "block";
+      explainEl.innerHTML = `<b>Explanation</b><br>${escapeHtml(q.explanation)}`;
+      btnReveal.disabled = true;
+      btnNext.disabled = false;
+    }
+
+    function next() {
+      if (idx < quiz.length - 1) {
+        idx += 1;
+        setChoicesDisabled(false);
+        render();
+      } else {
+        finish();
+      }
+    }
+
+    function finish() {
+      const elapsedMs = performance.now() - startTime;
+      const seconds = Math.round(elapsedMs / 1000);
+      const pct = Math.round((score / quiz.length) * 100);
+
+      showScreen("results");
+      finalScoreEl.textContent = `Score: ${score} / ${quiz.length}`;
+      finalPctEl.textContent = `Accuracy: ${pct}%`;
+      finalTimeEl.textContent = `Time: ${seconds}s`;
+
+      // Category breakdown
+      const byCat = {};
+      userAnswers.forEach(a => {
+        byCat[a.category] ??= { correct: 0, total: 0 };
+        byCat[a.category].total += 1;
+        byCat[a.category].correct += a.correct ? 1 : 0;
+      });
+
+      const catLines = Object.entries(byCat)
+        .map(([cat, v]) => `${cat}: ${v.correct}/${v.total}`)
+        .join(" • ");
+
+      summaryEl.textContent = `You answered ${score} out of ${quiz.length} correctly. ${catLines ? "Breakdown — " + catLines : ""}`;
+
+      // Review (expandable)
+      reviewEl.innerHTML = "";
+      const det = document.createElement("details");
+      det.open = false;
+      det.innerHTML = `<summary>Review answers</summary>`;
+      const wrap = document.createElement("div");
+      wrap.style.marginTop = "10px";
+
+      userAnswers.forEach((a, i) => {
+        const q = quiz.find(x => x.id === a.qid);
+        const p = document.createElement("div");
+        p.style.padding = "10px 0";
+        p.style.borderTop = i === 0 ? "none" : "1px solid color-mix(in oklab, CanvasText 14%, Canvas 86%)";
+        const chosen = q.choices[a.chosenIndex] ?? "(no answer)";
+        const correct = q.choices[q.answerIndex];
+        p.innerHTML = `
+          <div><b>Q${i + 1} (${escapeHtml(q.category)}):</b> ${escapeHtml(q.prompt)}</div>
+          <div class="small muted">Your answer: ${escapeHtml(chosen)} ${a.correct ? "✅" : "❌"}</div>
+          ${a.correct ? "" : `<div class="small muted">Correct: ${escapeHtml(correct)}</div>`}
+          <div class="small" style="margin-top:6px">${escapeHtml(q.explanation)}</div>
+        `;
+        wrap.appendChild(p);
+      });
+
+      det.appendChild(wrap);
+      reviewEl.appendChild(det);
+    }
+
+    // ---------- Events ----------
+    $("#btnStart").addEventListener("click", () => {
+      buildQuiz();
+      showScreen("quiz");
+      setChoicesDisabled(false);
+      render();
+    });
+
+    $("#btnSample").addEventListener("click", () => {
+      buildQuiz({ sampleOnly: true });
+      showScreen("quiz");
+      setChoicesDisabled(false);
+      render();
+    });
+
+    btnReveal.addEventListener("click", () => {
+      // If user hasn't chosen anything yet, revealing doesn't award points.
+      // We still want to record that it was revealed (optional), but keep it simple:
+      setChoicesDisabled(true);
+      revealAnswer();
+      // Also store a "no answer" record if they never clicked
+      const q = quiz[idx];
+      const already = userAnswers.some(a => a.qid === q.id);
+      if (!already) {
+        userAnswers.push({ qid: q.id, category: q.category, chosenIndex: -1, correct: false });
+      }
+    });
+
+    btnNext.addEventListener("click", () => next());
+
+    $("#btnRetry").addEventListener("click", () => {
+      // rebuild using same settings (start screen controls still set)
+      buildQuiz();
+      showScreen("quiz");
+      setChoicesDisabled(false);
+      render();
+    });
+
+    $("#btnBack").addEventListener("click", () => showScreen("start"));
+
+    $("#btnRestartTop").addEventListener("click", () => {
+      showScreen("start");
+    });
+
+    // Keyboard shortcuts: 1-4 to choose, Enter to go next when enabled
+    window.addEventListener("keydown", (e) => {
+      if (screenQuiz.style.display === "none") return;
+
+      if (e.key === "Enter") {
+        if (!btnNext.disabled) btnNext.click();
+        return;
+      }
+
+      const n = Number(e.key);
+      if (Number.isInteger(n) && n >= 1 && n <= 4) {
+        const i = n - 1;
+        const btn = choicesEl.querySelector(`button.choice[data-index="${i}"]`);
+        if (btn && !btn.disabled) btn.click();
+      }
+    });
+  </script>
+</body>
+
+
+
+
+  
 </html>
+
+
+
