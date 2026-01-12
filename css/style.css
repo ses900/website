@@ -32,6 +32,11 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
+nav a.is-active,
+nav a[aria-current="page"] {
+  text-decoration: underline;
+  color: #0a3d91;
+}
 
 /* General links */
 a {

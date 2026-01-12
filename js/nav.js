@@ -12,6 +12,7 @@ async function injectNav(placeholder) {
     const nav = placeholder.querySelector('nav');
     if (nav) {
       const normalizedBase = base === '.' ? '' : base.replace(/\/$/, '') + '/';
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
       nav.querySelectorAll('a[data-href]').forEach((link) => {
         const target = link.getAttribute('data-href');
         if (!target) {
@@ -19,6 +20,10 @@ async function injectNav(placeholder) {
         }
         const fullPath = `${normalizedBase}${target}`.replace(/\/\/+/, '/');
         link.setAttribute('href', fullPath);
+        if (target === currentPage) {
+          link.setAttribute('aria-current', 'page');
+          link.classList.add('is-active');
+        }
       });
     }
   } catch (error) {
