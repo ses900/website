@@ -32,6 +32,31 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
+.site-nav a[aria-current="page"] {
+  color: #1f2933;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  background: #e5edff;
+  border-radius: 6px;
+  padding: 0.1em 0.35em;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.75em;
+  left: 0.75em;
+  padding: 0.5em 0.9em;
+  background: #1f2933;
+  color: #fff;
+  border-radius: 6px;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+  z-index: 1000;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
 
 /* General links */
 a {
