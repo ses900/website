@@ -32,6 +32,9 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
+nav a:focus-visible {
+  text-decoration: underline;
+}
 
 /* General links */
 a {
@@ -40,6 +43,21 @@ a {
 }
 a:hover {
   text-decoration: underline;
+}
+a:focus-visible {
+  text-decoration: underline;
+}
+
+/* Focus states */
+a:focus-visible,
+button:focus-visible,
+.button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 3px;
 }
 
 /* Buttons */
@@ -63,7 +81,8 @@ a:hover {
 .button.ghost {
   background: transparent;
 }
-.button:hover {
+.button:hover,
+.button:focus-visible {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
