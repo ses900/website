@@ -25,6 +25,19 @@
 
   const rnd = (min, max) => Math.random() * (max - min) + min;
   const lerp = (a, b, t) => a + (b - a) * t;
+  const trackEvent = (eventName, props = {}) => {
+    if (window.siteAnalytics && typeof window.siteAnalytics.trackEvent === "function") {
+      window.siteAnalytics.trackEvent(eventName, props);
+    }
+  };
+
+  let hasStarted = false;
+  const markStarted = (action) => {
+    if (!hasStarted) {
+      trackEvent("demo_interaction_start", { demo_id: "stat-intuition", action });
+      hasStarted = true;
+    }
+  };
 
   /* ------------------------------ App shell ------------------------------- */
   const root = document.getElementById("statGame") || create("div", { id: "statGame" }, document.body);
@@ -79,9 +92,11 @@
     };
 
     btn.onclick = () => {
+      markStarted("correlation_guess_check");
       const guess = parseFloat(slider.value);
       const diff = Math.abs(guess - trueR).toFixed(2);
       result.textContent = `True ρ = ${trueR.toFixed(2)} | Your guess error: ${diff}`;
+      trackEvent("demo_interaction_reset", { demo_id: "stat-intuition", section: "correlation_guess" });
       genData();
       draw();
     };
@@ -124,8 +139,12 @@
       cur.a.forEach((txt, i) => {
         const btn = create("button", { textContent: txt, style: `margin:0.3em;background:${colors[i]};color:#fff;border:none;padding:0.5em 1em` }, options);
         btn.onclick = () => {
+          markStarted("causation_quiz_answer");
           feedback.textContent = i === cur.c ? "✅ Correct – common cause!" : "❌ Nope – consider lurking variables.";
           idx++;
+          if (idx >= q.length) {
+            trackEvent("demo_interaction_complete", { demo_id: "stat-intuition", completion_type: "causation_quiz_completed" });
+          }
           render();
         };
       });
@@ -260,6 +279,7 @@
     const fb = create("p", { style: "font-weight:bold" }, sec);
 
     btn.onclick = () => {
+      markStarted("base_rate_check");
       const guess = parseFloat(input.value) / 100;
       const P = (0.9 * 0.01) / (0.9 * 0.01 + 0.1 * 0.99);
       fb.textContent = `True answer ≈ ${(P * 100).toFixed(1)}%. Your error: ${Math.abs(P - guess).toFixed(2)}`;
@@ -307,6 +327,7 @@
     };
 
     cvs.onclick = () => {
+      markStarted("simpsons_toggle");
       grouped = !grouped;
       draw();
     };
