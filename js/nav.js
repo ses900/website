@@ -13,15 +13,33 @@ async function injectNav(placeholder) {
     if (nav) {
       const normalizedBase = base === '.' ? '' : base.replace(/\/$/, '') + '/';
       const currentPath = window.location.pathname.replace(/\/$/, '');
-      const currentFile = currentPath.split('/').pop() || 'index.html';
+      const pathSegments = currentPath.split('/').filter(Boolean);
+      const currentFile = pathSegments[pathSegments.length - 1] || 'index.html';
+      const currentSectionPath = pathSegments.slice(-2).join('/');
+      const currentSectionPrefix = pathSegments.slice(-2, -1).join('/') + '/';
+
+      const matchesRoute = (route) => {
+        if (!route) {
+          return false;
+        }
+        if (route.endsWith('/')) {
+          return (
+            currentSectionPath.startsWith(route) ||
+            currentSectionPrefix === route
+          );
+        }
+        return route === currentFile || route === currentSectionPath;
+      };
+
       nav.querySelectorAll('a[data-href]').forEach((link) => {
         const target = link.getAttribute('data-href');
+        const route = link.getAttribute('data-route') || target;
         if (!target) {
           return;
         }
         const fullPath = `${normalizedBase}${target}`.replace(/\/\/+/, '/');
         link.setAttribute('href', fullPath);
-        if (target === currentFile) {
+        if (matchesRoute(route)) {
           link.setAttribute('aria-current', 'page');
         } else {
           link.removeAttribute('aria-current');
