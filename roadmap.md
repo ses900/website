@@ -83,7 +83,24 @@ The website is currently a polished static portfolio with:
 ## Immediate implementation checklist (next commit candidates)
 
 - [ ] Add `writing/index.html` and first entry page.
+  - `writing/index.html` exists and is linked from primary navigation.
+  - index lists at least one writing entry with title and date.
+  - first entry page includes headline, publish date, and body copy.
+  - links between index and entry work in both directions.
 - [ ] Add `learning-paths.html` and link from nav.
+  - `learning-paths.html` exists and is linked from primary navigation.
+  - page includes at least two learning tracks.
+  - each track links to at least one demo and one quiz.
+  - listed links open the intended internal pages.
 - [ ] Add "Featured writing" section to `index.html`.
+  - homepage includes a clearly labeled "Featured writing" section.
+  - section shows at least two writing items with working links.
+  - each item displays a title and short descriptor (date or summary).
 - [ ] Add case-study card variant styles in `css/style.css`.
+  - stylesheet includes a dedicated case-study card variant selector.
+  - variant defines distinct styling for context, method, outcomes, and tools rows.
+  - updated styles do not break existing default project cards.
 - [ ] Update `README.md` with analytics and publishing workflow.
+  - README contains an "Analytics" section with named core events.
+  - README documents a repeatable monthly publishing workflow.
+  - workflow section includes roles or step ownership guidance.
