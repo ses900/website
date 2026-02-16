@@ -179,6 +179,26 @@ a:hover {
   padding: 1em;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
 }
+.card.case-study {
+  border-color: #d8e0f0;
+}
+.case-study-fields {
+  margin: 0;
+  display: grid;
+  gap: 0.45em;
+}
+.case-study-fields dt {
+  margin: 0.35em 0 0 0;
+  font-weight: 700;
+  color: #334155;
+}
+.case-study-fields dd {
+  margin: 0;
+  color: #1f2933;
+}
+.case-study-fields dd a {
+  font-weight: 600;
+}
 .card h3 {
   border: none;
   padding: 0;
