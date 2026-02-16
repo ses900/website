@@ -22,6 +22,8 @@
  *   });
  */
 
+import { trackEvent } from "../analytics.js";
+
 export function startAIViz({ trainCanvas, probCanvas, textElem }) {
   /* -------------------------- Training phase --------------------------- */
   const tCanvas = document.getElementById(trainCanvas);
@@ -54,6 +56,10 @@ export function startAIViz({ trainCanvas, probCanvas, textElem }) {
   const lr = 0.01;
   let epoch = 0;
   let training = true;
+  let hasCompletedTraining = false;
+  let hasCompletedGeneration = false;
+
+  trackEvent("demo_interaction_start", { demo_id: "ai-training-viz", action: "auto_start" });
 
   function mse() {
     return (
@@ -169,6 +175,15 @@ export function startAIViz({ trainCanvas, probCanvas, textElem }) {
       if (loss < 0.05 || epoch > 500) {
         training = false; // switch to inference
         txtEl.textContent = "";
+        if (!hasCompletedTraining) {
+          trackEvent("demo_interaction_complete", {
+            demo_id: "ai-training-viz",
+            completion_type: "training_converged",
+            epoch,
+            loss: Number(loss.toFixed(4)),
+          });
+          hasCompletedTraining = true;
+        }
       }
     } else {
       // Inference phase (one token every ~30 frames)
@@ -180,6 +195,13 @@ export function startAIViz({ trainCanvas, probCanvas, textElem }) {
           // reached end token (.)
           txtEl.textContent += ".";
           currentTok = 0;
+          if (!hasCompletedGeneration) {
+            trackEvent("demo_interaction_complete", {
+              demo_id: "ai-training-viz",
+              completion_type: "first_sentence_generated",
+            });
+            hasCompletedGeneration = true;
+          }
         } else {
           txtEl.textContent += (genStep === 0 ? "" : " ") + vocab[nextTok];
           currentTok = nextTok + 1; // shift row (toy mapping)

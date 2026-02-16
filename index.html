@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="analytics-endpoint" content="/api/analytics">
   <title>Søren Emil Skaarup – Home</title>
   <meta name="description" content="Homepage of Søren Emil Skaarup, a researcher exploring human-centered AI, data ethics, and creative simulations with interactive demos and essays.">
   <link rel="canonical" href="https://sorenemilskaarup.com/">
@@ -54,9 +55,9 @@
          emergent behaviour, or playful statistical intuition. This site is my
          living lab: equal parts resume, research log, and gallery of quick experiments.</p>
       <div class="cta-row">
-        <a class="button primary" href="projects.html">See projects</a>
+        <a class="button primary" href="projects.html" data-analytics-event="cta_projects_click" data-analytics-label="hero_see_projects">See projects</a>
         <a class="button" href="resume.html">Résumé</a>
-        <a class="button ghost" href="mailto:se.skaarup@gmail.com">Email me</a>
+        <a class="button ghost" href="mailto:se.skaarup@gmail.com" data-analytics-event="cta_conversation_click" data-analytics-label="hero_email_me">Email me</a>
       </div>
     </div>
     <div class="hero-card">
@@ -156,12 +157,13 @@
         <h3>Collaborations</h3>
         <p>If you're working on interpretable ML, ethical product design, or science
            communication, I'm always happy to trade notes.</p>
-        <a class="button primary" href="mailto:se.skaarup@gmail.com">Start a conversation</a>
+        <a class="button primary" href="mailto:se.skaarup@gmail.com" data-analytics-event="cta_conversation_click" data-analytics-label="collaboration_start_conversation">Start a conversation</a>
       </div>
     </div>
     </section>
   </main>
 
+  <script type="module" src="js/analytics.js"></script>
   <script src="js/nav.js" defer></script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="analytics-endpoint" content="/api/analytics">
   <title>Caesar Cipher Machine</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -30,6 +31,7 @@
   <h3>Output</h3>
   <textarea id="cipherText" rows="4" style="width:100%;" readonly></textarea>
 
+  <script type="module" src="../js/analytics.js"></script>
   <script src="../js/nav.js" defer></script>
   <script type="module">
     import { setupCaesar } from "../js/demos/caesarCipher.js";
