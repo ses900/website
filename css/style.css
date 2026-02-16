@@ -220,6 +220,31 @@ ul {
   font-size: 0.9rem;
   color: #1f2a44;
 }
+
+.topic-tags {
+  list-style: none;
+  padding: 0;
+  margin: 0.6em 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+}
+
+.topic-tags li {
+  margin: 0;
+}
+
+.topic-tag {
+  display: inline-block;
+  padding: 0.15em 0.55em;
+  border-radius: 999px;
+  border: 1px solid #b8c5df;
+  background: #f8faff;
+  color: #39527e;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
 .stacked-list {
   list-style: none;
   padding: 0;
